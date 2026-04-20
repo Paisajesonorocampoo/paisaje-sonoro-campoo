@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paisaje Sonoro de Campoo — 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #F6F5F0;
+  --bg2:       #EDECEA;
+  --ink:       #1B2B37;
+  --muted:     #7B8E9B;
+  --border:    rgba(27,43,55,0.14);
+  --green:     #7BAF6E;
+  --blue:      #5E8BAD;
+  --rose:      #A96F7D;
+  --accent:    #26455A;
+  --f-display: 'Cormorant', serif;
+  --f-body:    'Jost', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── HERO ─────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem,6vw,5rem) clamp(1.5rem,6vw,5rem);
+  overflow: hidden;
+}
+
+.hero__topo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__topo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 660px;
+  animation: rise 1.1s cubic-bezier(.22,.68,0,1.1) both;
+}
+
+.hero__ear {
+  margin-bottom: 2.2rem;
+}
+
+.hero__kicker {
+  font-family: var(--f-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.1rem;
+}
+
+.hero__title {
+  font-family: var(--f-display);
+  font-size: clamp(3.8rem,9vw,8rem);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-bottom: 1.8rem;
+}
+
+.hero__title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero__sub {
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.hero__sub::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--muted);
+}
+
+/* ── ABOUT ─────────────────────────────────────────── */
+.about {
+  padding: clamp(3rem,7vw,6rem) clamp(1.5rem,6vw,5rem);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 3rem 4rem;
+  align-items: start;
+  animation: rise 0.9s 0.15s cubic-bezier(.22,.68,0,1.1) both;
+}
+
+.label {
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.about__text {
+  font-family: var(--f-display);
+  font-size: clamp(1.25rem,2.8vw,1.85rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* ── PROGRAM ─────────────────────────────────────────── */
+.program {
+  padding: 0 clamp(1.5rem,6vw,5rem);
+  max-width: 1100px;
+  margin: 0 auto 5rem;
+}
+
+.program__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.9rem;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 0;
+}
+
+.program__head-label { font-size:0.6rem; font-weight:400; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted); }
+.program__head-range { font-family:var(--f-display); font-size:1.05rem; font-weight:300; color:var(--muted); }
+
+/* event row */
+.event {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 1.5rem 2.5rem;
+  padding: 1.8rem 0;
+  border-bottom: 0.5px solid var(--border);
+  align-items: start;
+  transition: opacity 0.2s;
+}
+
+.event--private {
+  opacity: 0.38;
+}
+
+.event__date-num {
+  font-family: var(--f-display);
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.event__date-day {
+  display: block;
+  font-family: var(--f-body);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.event__date-time {
+  display: block;
+  font-family: var(--f-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  letter-spacing: 0.06em;
+}
+
+.event__title {
+  font-family: var(--f-display);
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+
+.event__place {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.event__desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--ink);
+  max-width: 460px;
+  line-height: 1.65;
+}
+
+.event__desc .tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+}
+
+.tag {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  border-radius: 2px;
+}
+
+.tag--open {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.event__badge {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  border-radius: 2px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 0.3rem;
+}
+
+.event__badge--highlight {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* color accent bar */
+.event { position: relative; }
+.event__bar {
+  position: absolute;
+  left: -1.5rem;
+  top: 1.8rem;
+  bottom: 1.8rem;
+  width: 2px;
+  border-radius: 1px;
+  opacity: 0.55;
+}
+
+/* ── FOOTER ─────────────────────────────────────────── */
+footer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem clamp(1.5rem,6vw,5rem) 4rem;
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.footer__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.footer__logo-img {
+  height: 64px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+  mix-blend-mode: multiply;
+}
+
+.footer__logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.footer__logo-gov {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer__logo-dept {
+  font-size: 0.65rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.footer__credit {
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+  letter-spacing: 0.03em;
+}
+
+.footer__contact a {
+  font-family: var(--f-display);
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--border);
+  padding-bottom: 2px;
+  letter-spacing: 0.01em;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.footer__contact a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── ANIMATION ─────────────────────────────────────────── */
+@keyframes rise {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .about { grid-template-columns: 1fr; gap: 0.8rem; }
+  .event { grid-template-columns: 90px 1fr; gap: 1rem 1.2rem; }
+  .event__badge { display: none; }
+  .event__bar { display: none; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+
+  <div class="hero__topo" aria-hidden="true">
+    <svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+
+      <!-- grid dashed -->
+      <g stroke="#9BAAB4" stroke-width="0.4" stroke-dasharray="3 9" opacity="0.28">
+        <line x1="0" y1="180" x2="1400" y2="180"/>
+        <line x1="0" y1="360" x2="1400" y2="360"/>
+        <line x1="0" y1="540" x2="1400" y2="540"/>
+        <line x1="0" y1="720" x2="1400" y2="720"/>
+        <line x1="233" y1="0" x2="233" y2="900"/>
+        <line x1="466" y1="0" x2="466" y2="900"/>
+        <line x1="700" y1="0" x2="700" y2="900"/>
+        <line x1="933" y1="0" x2="933" y2="900"/>
+        <line x1="1166" y1="0" x2="1166" y2="900"/>
+      </g>
+
+      <!-- green layer — valleys -->
+      <g fill="none" stroke="#7BAF6E" stroke-width="0.9" opacity="0.32">
+        <path d="M-60 660 C 80 635 200 670 360 648 C 520 626 640 660 800 638 C 960 616 1120 655 1320 630 L1460 622"/>
+        <path d="M-60 720 C 100 700 230 735 400 715 C 570 695 700 730 870 710 C1040 690 1200 722 1400 702 L1460 698"/>
+        <path d="M-60 780 C 120 766 280 790 480 775 C 680 760 860 785 1060 770 C1260 755 1380 778 1460 770"/>
+        <path d="M-60 840 C 160 832 380 848 600 838 C 820 828 1040 844 1260 835 L1460 830"/>
+        <path d="M 300 820 C 450 808 600 828 760 818 C920 808 1080 826 1240 816"/>
+      </g>
+
+      <!-- blue layer — mid -->
+      <g fill="none" stroke="#5E8BAD" stroke-width="0.9" opacity="0.28">
+        <path d="M 340 -20 C 320 100 360 240 330 380 C 300 520 340 620 310 750 C 280 880 320 900 300 940"/>
+        <path d="M 520 -20 C 500 90 530 220 510 360 C 490 500 515 600 500 730 C 485 860 505 900 495 940"/>
+        <path d="M 140 80 C 200 200 175 360 215 500 C 255 640 220 740 260 860"/>
+        <path d="M-60 240 C 80 270 180 210 320 248 C460 286 540 226 680 258 C820 290 920 234 1080 262 C1200 284 1320 248 1460 265"/>
+        <path d="M-60 420 C 100 448 220 388 380 418 C540 448 640 392 800 420 C960 448 1060 395 1240 422 C1340 434 1400 418 1460 415"/>
+      </g>
+
+      <!-- rose layer — peaks -->
+      <g fill="none" stroke="#A96F7D" stroke-width="0.9" opacity="0.22">
+        <path d="M 660 -20 C 700 120 665 260 705 400 C 745 540 710 640 750 770 C790 900 760 920 780 960"/>
+        <path d="M 840 -20 C 875 140 845 280 880 420 C 915 560 885 660 920 790"/>
+        <path d="M1000 40 C1040 190 1010 340 1050 480 C1090 620 1060 720 1100 850"/>
+        <path d="M 420 60 C 530 90 600 48 710 76 C820 104 895 62 1010 88 C1125 114 1220 74 1360 96 L1460 102"/>
+        <path d="M 160 130 C 280 155 390 118 510 143 C630 168 730 128 860 150 C990 172 1100 136 1230 155"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero__content">
+
+    <!-- sound icon -->
+    <div class="hero__ear" aria-hidden="true">
+      <svg width="38" height="30" viewBox="0 0 38 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2"  y1="11" x2="2"  y2="19" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.45"/>
+        <line x1="7"  y1="8"  x2="7"  y2="22" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.55"/>
+        <line x1="12" y1="4"  x2="12" y2="26" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+        <line x1="17" y1="8"  x2="17" y2="22" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+        <line x1="22" y1="2"  x2="22" y2="28" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="27" y1="7"  x2="27" y2="23" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.75"/>
+        <line x1="32" y1="10" x2="32" y2="20" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/>
+        <line x1="37" y1="13" x2="37" y2="17" stroke="#1B2B37" stroke-width="1.2" stroke-linecap="round" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <p class="hero__kicker">Comarca de Campoo &nbsp;·&nbsp; Mayo–Junio 2026</p>
+    <h1 class="hero__title">Paisaje<br><em>Sonoro</em><br>de Campoo</h1>
+    <p class="hero__sub">Talleres de creación sonora</p>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section class="about">
+  <div>
+    <p class="label">El proyecto</p>
+  </div>
+  <div>
+    <p class="about__text">
+      Un programa artístico y educativo que documenta el patrimonio acústico de la comarca.
+      Niñas, niños, vecinos y agentes locales graban y elaboran juntos cuatro piezas sonoras
+      que retratan el Pantano del Ebro, el pulso del pueblo, la montaña y la ganadería,
+      y los nocturnos de Campoo. Las grabaciones se editan con criterios profesionales
+      y se presentan en una audición final abierta en el Castillo de Argüeso.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ PROGRAM ══════════ -->
+<section class="program">
+  <div class="program__head">
+    <span class="program__head-label">Programa</span>
+    <span class="program__head-range">Mayo — Junio 2026</span>
+  </div>
+
+  <!-- ── 10 mayo ── -->
+  <article class="event">
+    <div class="event__bar" style="background:var(--green);"></div>
+    <div>
+      <span class="event__date-day">Dom</span>
+      <span class="event__date-num">10.05</span>
+      <span class="event__date-time">12:00 h</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Sonidos del Pueblo</h2>
+      <p class="event__place">Paracuelles &nbsp;·&nbsp; Campoo de Suso</p>
+      <p class="event__desc">
+        Taller de grabación con infancia. Registro del pulso sonoro del pueblo:
+        voces, oficios, espacio público.
+      </p>
+      <div class="event__desc">
+        <div class="tags">
+          <span class="tag">Taller con infancia</span>
+          <span class="tag tag--open">Con inscripción</span>
+        </div>
+      </div>
+    </div>
+    <span class="event__badge event__badge--highlight">Inscripción abierta</span>
+  </article>
+
+  <!-- ── 17 mayo ── -->
+  <article class="event">
+    <div class="event__bar" style="background:var(--blue);"></div>
+    <div>
+      <span class="event__date-day">Dom</span>
+      <span class="event__date-num">17.05</span>
+      <span class="event__date-time">8:00 h</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Pantano del Ebro</h2>
+      <p class="event__place">Iglesia de Bustamante → Laguna de Anátidas &nbsp;·&nbsp; Campoo de Yuso</p>
+      <p class="event__desc">
+        Salida de campo al amanecer. Grabación de aves acuáticas en la colonia
+        de cigüeñas y la laguna de anátidas.
+      </p>
+      <div class="event__desc">
+        <div class="tags">
+          <span class="tag">Taller con infancia</span>
+          <span class="tag tag--open">Con inscripción</span>
+        </div>
+      </div>
+    </div>
+    <span class="event__badge event__badge--highlight">Inscripción abierta</span>
+  </article>
+
+  <!-- ── 20 mayo — PRIVADO ── -->
+  <article class="event event--private">
+    <div class="event__bar" style="background:var(--muted);"></div>
+    <div>
+      <span class="event__date-day">Mié</span>
+      <span class="event__date-num">20.05</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Micro-escucha guiada</h2>
+      <p class="event__place">Fresno del Río</p>
+      <p class="event__desc">Sesión de trabajo &nbsp;·&nbsp; 60–90 min</p>
+    </div>
+    <span class="event__badge">Sesión interna</span>
+  </article>
+
+  <!-- ── 22 mayo — PRIVADO ── -->
+  <article class="event event--private">
+    <div class="event__bar" style="background:var(--muted);"></div>
+    <div>
+      <span class="event__date-day">Vie</span>
+      <span class="event__date-num">22.05</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Montaña y Ganadería</h2>
+      <p class="event__place">Campoo de Suso</p>
+      <p class="event__desc">Sesión de trabajo</p>
+    </div>
+    <span class="event__badge">Sesión interna</span>
+  </article>
+
+  <!-- ── 30 mayo ── -->
+  <article class="event">
+    <div class="event__bar" style="background:var(--rose);"></div>
+    <div>
+      <span class="event__date-day">Sáb</span>
+      <span class="event__date-num">30.05</span>
+      <span class="event__date-time">20:00 h</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Paseo Nocturno</h2>
+      <p class="event__place">Mata de Hoz &nbsp;·&nbsp; Colabora Club de Montaña Pico Cordel</p>
+      <p class="event__desc">
+        Caminata de escucha responsable. Registro de los sonidos del territorio
+        tras el anochecer, con el Club de Montaña Pico Cordel.
+      </p>
+      <div class="event__desc">
+        <div class="tags">
+          <span class="tag">Adultos</span>
+          <span class="tag tag--open">Acceso libre</span>
+        </div>
+      </div>
+    </div>
+    <span class="event__badge event__badge--highlight">Acceso libre</span>
+  </article>
+
+  <!-- ── 14 junio ── -->
+  <article class="event">
+    <div class="event__bar" style="background:var(--accent);"></div>
+    <div>
+      <span class="event__date-day">Sáb</span>
+      <span class="event__date-num">14.06</span>
+      <span class="event__date-time">18:00 h</span>
+    </div>
+    <div class="event__body">
+      <h2 class="event__title">Audición Final &amp; Proyección</h2>
+      <p class="event__place">Castillo de Argüeso</p>
+      <p class="event__desc">
+        Presentación de las cuatro piezas sonoras. Escucha inmersiva con estaciones de cascos.
+        Proyección del vídeo del proceso.
+      </p>
+      <div class="event__desc">
+        <div class="tags">
+          <span class="tag">Escucha inmersiva</span>
+          <span class="tag">Estaciones de cascos</span>
+          <span class="tag tag--open">Microbús comarcal gratuito</span>
+        </div>
+      </div>
+    </div>
+    <span class="event__badge event__badge--highlight">Evento abierto</span>
+  </article>
+
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div class="footer__left">
+    <div class="footer__logo">
+      <img src="GOBIERNO_0723_rgb.png"
+           alt="Gobierno de Cantabria — Consejería de Cultura, Turismo y Deporte"
+           class="footer__logo-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="footer__logo-text" style="display:none">
+        <span class="footer__logo-gov">Gobierno de Cantabria</span>
+        <span class="footer__logo-dept">Consejería de Cultura, Turismo y Deporte</span>
+      </div>
+    </div>
+    <p class="footer__credit">
+      Actividad subvencionada por la Consejería de Cultura, Turismo y Deporte<br>
+      del Gobierno de Cantabria &nbsp;·&nbsp; Orden CTD/11/2025
+    </p>
+  </div>
+  <div class="footer__contact">
+    <a href="mailto:contacto@rederaestudio.com">contacto@rederaestudio.com</a>
+  </div>
+</footer>
+
+</body>
+</html>

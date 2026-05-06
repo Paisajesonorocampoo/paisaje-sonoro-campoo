@@ -804,10 +804,15 @@ if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = new FormData(form);
+    const obj = {};
+    data.forEach((v, k) => { obj[k] = v; });
     const res = await fetch(form.action, {
       method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(obj)
     });
     if (res.ok) {
       form.style.display = 'none';
